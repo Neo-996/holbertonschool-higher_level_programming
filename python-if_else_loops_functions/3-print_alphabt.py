@@ -1,4 +1,4 @@
 #!/usr/bin/python3
-for c in range(97,123):
-    if c != 101 and c != 113:
-        print(chr(c), end="")
+for letter in range(97, 123):
+    if chr(letter) is not 'q' and chr(letter) is not 'e':
+        print("{}".format(chr(letter)), end="")
