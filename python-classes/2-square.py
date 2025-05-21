@@ -1,20 +1,20 @@
 #!/usr/bin/python3
-"""Defines a class Square with size validation."""
+"""
+1-square.py: is a class Square that defines a square
+"""
+
 
 class Square:
-    """A class that defines a square."""
+    """class Square that defines a square
+
+        Attributes:
+        attr1 (size): Size of the Square.
+
+    """
 
     def __init__(self, size=0):
-        """Initialize the square.
-
-        Args:
-            size (int): Size of the square (default is 0).
-
-        Raises:
-            TypeError: If size is not an integer.
-            ValueError: If size is less than 0.
-        """
-        if not isinstance(size, int):
+        """Initializer with default size = 0"""
+        if type(size) is not int:
             raise TypeError("size must be an integer")
         if size < 0:
             raise ValueError("size must be >= 0")
