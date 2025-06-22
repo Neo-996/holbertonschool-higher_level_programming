@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module provides a function to 
+"""module provides a function to 
 read and print a UTF-8 text file to stdout."""
 
 
