@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Function to generate Pascal's Triangle
+Defines a function to generate Pascal's Triangle
 """
 
 
