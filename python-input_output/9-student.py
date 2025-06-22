@@ -3,6 +3,7 @@
 Module defining the Student class with JSON serialization method.
 """
 
+
 class Student:
     """ Student class with first_name, last_name, and age attributes """
 
