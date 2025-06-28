@@ -1,3 +1,2 @@
 -- Script to list all databases sorted alphabetically
-SHOW DATABASES
-ORDER BY `Database`;
+SHOW DATABASES;
