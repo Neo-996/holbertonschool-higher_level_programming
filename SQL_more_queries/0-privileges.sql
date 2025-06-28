@@ -1,9 +1,4 @@
--- Create users if they do not exist (no password for safety)
-CREATE USER IF NOT EXISTS 'user_0d_1'@'localhost';
-CREATE USER IF NOT EXISTS 'user_0d_2'@'localhost';
-
--- Show grants for user_0d_1
+-- Script that lists all privileges of the MySQL users
+-- Query to list all privileges (GRANT) of the MySQL users
 SHOW GRANTS FOR 'user_0d_1'@'localhost';
-
--- Show grants for user_0d_2
 SHOW GRANTS FOR 'user_0d_2'@'localhost';
