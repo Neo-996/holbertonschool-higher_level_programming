@@ -1,1 +1,3 @@
-SHOW DATABASES;
+-- Script to list all databases sorted alphabetically
+SHOW DATABASES
+ORDER BY `Database`;
