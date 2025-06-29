@@ -3,7 +3,8 @@
 Lists all states with a name starting with 'N' from the database hbtn_0e_0_usa.
 """
 
-import argv
+import MySQLdb
+from sys
 
 if __name__ == "__main__":
     # Connect to the MySQL server
