@@ -9,29 +9,35 @@ Usage:
 """
 
 import MySQLdb
-from sys import argv
+import sys
 
+if __name__ == "__main__":
+    # Connect to the MySQL database using command line arguments
+    connection = MySQLdb.connect(
+        host="localhost",
+        user=sys.argv[1],   # MySQL username
+        passwd=sys.argv[2], # MySQL password
+        db=sys.argv[3],     # Database name
+        port=3306           # Default MySQL port
+    )
 
-def main():
-    """Connect to MySQL and print states matching the name argument sorted by id."""
-    db = MySQLdb.connect(host="localhost", port=3306,
-                         user=argv[1], passwd=argv[2],
-                         db=argv[3], charset="utf8")
-    cursor = db.cursor()
+    # Create a cursor to execute SQL queries
+    cursor = connection.cursor()
 
-    # Escape single quotes in the state name to avoid SQL errors
-    state_name = argv[4].replace("'", "''")
+    # Build the SQL query with exact case-sensitive filtering
+    query = ("SELECT * FROM states "
+             "WHERE BINARY name = '{}' "
+             "ORDER BY states.id ASC"
+             ).format(sys.argv[4])
 
-    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
+    # Execute the SQL query
     cursor.execute(query)
-    rows = cursor.fetchall()
 
+    # Fetch and print all resulting rows
+    rows = cursor.fetchall()
     for row in rows:
         print(row)
 
+    # Close the cursor and the database connection
     cursor.close()
-    db.close()
-
-
-if __name__ == "__main__":
-    main()
+    connection.close()
