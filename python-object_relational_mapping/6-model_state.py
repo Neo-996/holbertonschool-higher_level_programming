@@ -1,14 +1,27 @@
 #!/usr/bin/python3
-"""Creates the states table in the specified database"""
+"""
+This script connects to a MySQL database using SQLAlchemy and
+creates all tables defined by Base subclasses (here, the states table).
+"""
 
 import sys
-from model_state import Base, State
 from sqlalchemy import create_engine
+from model_state import Base, State
+
 
 if __name__ == "__main__":
-    # Connect to the MySQL server and database
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format(
-        sys.argv[1], sys.argv[2], sys.argv[3]), pool_pre_ping=True)
+    # Validate arguments count
+    if len(sys.argv) != 4:
+        print("Usage: ./6-model_state.py <mysql username> <mysql password> <database name>")
+        sys.exit(1)
 
-    # Create all tables that inherit from Base (i.e., states)
+    # Create the engine to connect to MySQL database
+    engine = create_engine(
+        'mysql+mysqldb://{}:{}@localhost:3306/{}'.format(
+            sys.argv[1], sys.argv[2], sys.argv[3]
+        ),
+        pool_pre_ping=True
+    )
+
+    # Create all tables stored in Base's metadata
     Base.metadata.create_all(engine)
