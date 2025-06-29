@@ -11,7 +11,7 @@ if __name__ == '__main__':
     # Connect to the MySQL database using user-provided credentials
     db = MySQLdb.connect(
         user=sys.argv[1],         # MySQL username
-        password=sys.argv[2],     # MySQL password
+        passwd=sys.argv[2],     # MySQL password
         database=sys.argv[3],     # Database name
         port=3306                 # Default MySQL port
     )
