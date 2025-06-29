@@ -1,25 +1,26 @@
 #!/usr/bin/python3
 """
 This script takes a state name as an argument and lists all cities of that state
-from the database hbtn_0e_4_usa, sorted by cities.id in ascending order.
+from the hbtn_0e_4_usa database, sorted by cities.id in ascending order.
 """
 
-import MySQLdb  # Import MySQLdb module to work with MySQL
-import sys      # Import sys for command-line arguments
+import MySQLdb  # Import MySQLdb module to interact with MySQL
+import sys      # Import sys to get command-line arguments
 
 if __name__ == '__main__':
-    # Connect to the MySQL database using user-provided credentials
+    # Connect to the MySQL database using command-line arguments
     db = MySQLdb.connect(
+        host='localhost',         # MySQL server host
+        port=3306,                # MySQL port
         user=sys.argv[1],         # MySQL username
-        passwd=sys.argv[2],     # MySQL password
-        database=sys.argv[3],     # Database name
-        port=3306                 # Default MySQL port
+        passwd=sys.argv[2],       # MySQL password
+        db=sys.argv[3]            # Database name
     )
 
-    # Create a cursor object to perform SQL queries
+    # Create a cursor to execute SQL queries
     query = db.cursor()
 
-    # Execute a single parameterized query to prevent SQL injection
+    # Use a single parameterized query to prevent SQL injection
     query.execute("""
         SELECT cities.name
         FROM cities
@@ -31,9 +32,9 @@ if __name__ == '__main__':
     # Fetch all matching rows
     rows = query.fetchall()
 
-    # Extract city names and join them with a comma
+    # Join city names by comma and print, or print nothing if no matches
     print(", ".join([row[0] for row in rows]))
 
-    # Clean up by closing cursor and connection
+    # Clean up: close cursor and database connection
     query.close()
     db.close()
