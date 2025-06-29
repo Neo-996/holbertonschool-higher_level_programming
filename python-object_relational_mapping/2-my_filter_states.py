@@ -1,10 +1,19 @@
 #!/usr/bin/python3
-"""Lists all states with a name matching the argument."""
+"""
+This script takes in four arguments: mysql username, mysql password,
+database name, and state name searched. It connects to the MySQL
+database and lists all states with a name matching the given argument.
+"""
 
 import MySQLdb
 import sys
 
-if __name__ == "__main__":
+
+def main():
+    """
+    Connects to the MySQL database and queries the states table for a state
+    matching the user input. Prints all matching rows sorted by id.
+    """
     db = MySQLdb.connect(host="localhost", port=3306,
                          user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
     cursor = db.cursor()
@@ -15,3 +24,7 @@ if __name__ == "__main__":
         print(row)
     cursor.close()
     db.close()
+
+
+if __name__ == "__main__":
+    main()
