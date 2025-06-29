@@ -6,7 +6,6 @@ Usage:
     ./2-my_filter_states.py <mysql username> <mysql password> <database name> <state name>
 """
 
-import MySQLdb
 from sys import argv
 
 
