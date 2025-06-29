@@ -8,35 +8,33 @@ sorted by city id in ascending order.
 import MySQLdb
 import sys
 
-if __name__ == '__main__':
-    # Connect to the MySQL database using credentials from command line arguments
-    db = MySQLdb.connect(
-        user=sys.argv[1],
-        password=sys.argv[2],
-        database=sys.argv[3]
+if __name__ == "__main__":
+    # Connect to the database
+    connection = MySQLdb.connect(
+        host="localhost",
+        user=sys.argv[1],       # MySQL username from command line argument
+        passwd=sys.argv[2],     # MySQL password from command line argument
+        db=sys.argv[3],         # Database name from command line argument
+        port=3306               # MySQL default port
     )
-    # Create a cursor object to execute SQL queries
-    query = db.cursor()
 
-    # Execute a parameterized SQL query to get city names for the given state
-    query.execute("""
-        SELECT cities.name
-        FROM cities
-        INNER JOIN states
-        ON cities.state_id = states.id
-        WHERE states.name = %s
-        ORDER BY cities.id ASC
-    """, (sys.argv[4],))
-    
-    # Fetch all the matching rows
-    rows = query.fetchall()
+    # Create a cursor to execute queries
+    cursor = connection.cursor()
 
-    # Extract city names from the rows
-    cities = [row[0] for row in rows]
+    # SQL query to get city names linked to a given state
+    query = ("SELECT cities.name "
+             "FROM cities "
+             "JOIN states ON cities.state_id = states.id "
+             "WHERE states.name = %s "
+             "ORDER BY cities.id ASC")
 
-    # Print city names separated by commas
-    print(*cities, sep=", ")
+    # Execute the query safely with the state name parameter
+    cursor.execute(query, (sys.argv[4],))
 
-    # Close the cursor and the database connection
-    query.close()
-    db.close()
+    # Fetch results and print city names separated by commas
+    rows = cursor.fetchall()
+    print(", ".join([row[0] for row in rows]))
+
+    # Close the cursor and connection
+    cursor.close()
+    connection.close()
