@@ -7,25 +7,21 @@ import MySQLdb
 from sys import argv
 
 if __name__ == "__main__":
-    # Connect to the MySQL server
+    # Connect to the database
     db = MySQLdb.connect(
         host="localhost", port=3306,
         user=argv[1], passwd=argv[2],
         db=argv[3], charset="utf8"
     )
 
-    # Create a cursor
     cursor = db.cursor()
 
-    # Execute the query (may return extra results if collation is case-insensitive)
-    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+    # Case-sensitive match using BINARY
+    cursor.execute("SELECT * FROM states WHERE BINARY name LIKE 'N%' ORDER BY id ASC")
 
-    # Filter in Python for strict case sensitivity
     rows = cursor.fetchall()
     for row in rows:
-        if row[1][0] == 'N':
-            print(row)
+        print(row)
 
-    # Cleanup
     cursor.close()
     db.close()
