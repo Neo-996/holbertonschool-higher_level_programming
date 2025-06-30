@@ -13,7 +13,8 @@ from model_state import Base, State
 if __name__ == "__main__":
     # Check argument count
     if len(sys.argv) != 5:
-        print("Usage: ./10-model_state_my_get.py <user> <password> <db> <state_name>")
+        print("Usage: ./10-model_state_my_get.py "
+              "<user> <password> <db> <state_name>")
         sys.exit(1)
 
     # Setup connection to MySQL
