@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Deletes all State objects with a name containing the letter 'a' from the database.
+Deletes all State objects with a name 
+containing the letter 'a' from the database.
 """
 
 import sys
@@ -12,7 +13,8 @@ from model_state import Base, State
 if __name__ == "__main__":
     # Check for correct arguments count
     if len(sys.argv) != 4:
-        print("Usage: ./13-model_state_delete_a.py <username> <password> <database>")
+        print("Usage: ./13-model_state_delete_a.py "
+              "<username> <password> <database>")
         sys.exit(1)
 
     # Connect to the database
@@ -26,7 +28,8 @@ if __name__ == "__main__":
     session = Session()
 
     # Query for states containing 'a' in their name
-    states_to_delete = session.query(State).filter(State.name.like('%a%')).all()
+    states_to_delete = session.query(State).filter(
+        State.name.like('%a%')).all()
 
     # Delete all the states found
     for state in states_to_delete:
