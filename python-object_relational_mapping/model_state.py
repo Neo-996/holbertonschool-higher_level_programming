@@ -11,7 +11,6 @@ Base = declarative_base()
 
 
 class State(Base):
-    
     """
     Represents the 'states' table.
     Each instance corresponds to a row in the table.
