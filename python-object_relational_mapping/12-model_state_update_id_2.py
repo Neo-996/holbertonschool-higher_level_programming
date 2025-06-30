@@ -12,7 +12,8 @@ from model_state import Base, State
 if __name__ == "__main__":
     # Check for correct number of arguments
     if len(sys.argv) != 4:
-        print("Usage: ./12-model_state_update_id_2.py <username> <password> <database>")
+        print("Usage: ./12-model_state_update_id_2.py "
+              "<username> <password> <database>")
         sys.exit(1)
 
     # Create the engine and bind a session
