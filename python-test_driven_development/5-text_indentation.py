@@ -6,33 +6,27 @@ by adding two newlines after each occurrence of `.`, `?`, or `:`.
 
 
 def text_indentation(text):
-    """
-    Prints text with two newlines after each occurrence of '.', '?', or ':'.
+    """Function that prints text with 2 new lines after each of these characters: '.', '?', and ':'"""
+    
+    # Check if text is a string
+    if not isinstance(text, str):
+        raise TypeError("text must be a string")
 
-    Args:
-        text (str): The input string to modify.
+    delimiters = ".?:"
+    temp = ""
 
-    Raises:
-        TypeError: If `text` is not a string.
-    """
-    if type(text) is not str:
-        raise TypeError('text must be a string')
-
-    j = 0
-    delims = '.?:'
-
-    for i, char in enumerate(text):
-        for delim in delims:
-            if char is delim:
-                j += 1
-                text = text[:i + j] + ' ' + text[i + j:]
-
-    words = text.split()
-
-    for word in words:
-        if word[-1:] in ".?:":
-            print(word, end="\n\n")
-        elif word is words[-1]:
-            print(word, end="")
+    for char in text:
+        # Ensure char is a string (char is the individual character in the loop)
+        if isinstance(char, str):  
+            temp += char
+            if char in delimiters:
+                print(temp.strip())  # Print and strip the temp string
+                print()  # Newline after delimiter
+                temp = ""  # Reset temp for next sentence
         else:
-            print(word, end=" ")
+            # In case the text contains non-string values like integers, raise an error
+            raise TypeError("text must be a string")
+
+    # Handle any remaining text after the loop ends
+    if temp:
+        print(temp.strip())
