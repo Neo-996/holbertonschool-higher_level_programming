@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This module defines the `text_indentation` function, which formats a string 
+This module defines the `text_indentation` function, which formats a string
 by adding two newlines after each occurrence of `.`, `?`, or `:`.
 """
 
