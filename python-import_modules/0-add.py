@@ -1,12 +1,13 @@
 #!/usr/bin/python3
-"""
-Imports the add function from add_0.py, adds two integers, and prints the result
-in the format: "<a value> + <b value> = <add(a, b) value>".
-Executed only when run directly, not when imported.
+"""Module to add two integers and print the result in a formatted string
 """
 
-from add_0 import add
+from add_0 import add  # Importing add() function only once
 
-a = 1
-b = 2
-print("{} + {} = {}".format(a, b, add(a, b)))
+def main():
+    a = 1  # Define a
+    b = 2  # Define b
+    print(f"{a} + {b} = {add(a, b)}")  # Using one print statement with string format
+
+if __name__ == "__main__":
+    main()  # This ensures the code runs only when executed directly
