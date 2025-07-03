@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Python Task 3. File numbering offset due to formatting error."""
 
+
 def say_my_name(first_name, last_name=""):
     """Prints 'My name is <first_name> <last_name>'.
 
