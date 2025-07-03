@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Python Task 5. Error in file numbering due to formatting scheme."""
 
+
 def text_indentation(text):
     """Prints text with two new lines after '.', '?', or ':'.
 
