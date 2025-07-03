@@ -1,12 +1,19 @@
 #!/usr/bin/python3
-"""Python Task 5. Error in file numbering due to formatting scheme."""
+"""
+This module defines the `text_indentation` function, which formats a string 
+by adding two newlines after each occurrence of `.`, `?`, or `:`.
+"""
 
 
 def text_indentation(text):
-    """Prints text with two new lines after '.', '?', or ':'.
+    """
+    Prints text with two newlines after each occurrence of '.', '?', or ':'.
 
     Args:
         text (str): The input string to modify.
+
+    Raises:
+        TypeError: If `text` is not a string.
     """
     if type(text) is not str:
         raise TypeError('text must be a string')
