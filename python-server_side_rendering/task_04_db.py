@@ -10,52 +10,51 @@ def read_json():
     try:
         with open('products.json') as f:
             return json.load(f)
-    except Exception:
+    except Exception as e:
+        print(f"Error reading JSON: {e}")
         return []
 
 # Read from CSV file
 def read_csv():
-    products = []
     try:
+        data = []
         with open('products.csv') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                products.append({
+                # Convert price and id to appropriate types
+                data.append({
                     'id': int(row['id']),
                     'name': row['name'],
                     'category': row['category'],
                     'price': float(row['price'])
                 })
-    except Exception:
-        pass
-    return products
+        return data
+    except Exception as e:
+        print(f"Error reading CSV: {e}")
+        return []
 
-# Read from SQLite database
+# Read from SQLite
 def read_sql(product_id=None):
     try:
         conn = sqlite3.connect('products.db')
-        conn.row_factory = sqlite3.Row  # Enable dictionary-like row access
         cursor = conn.cursor()
-
         if product_id:
-            cursor.execute("SELECT * FROM Products WHERE id = ?", (product_id,))
+            cursor.execute("SELECT id, name, category, price FROM Products WHERE id = ?", (product_id,))
         else:
-            cursor.execute("SELECT * FROM Products")
-
+            cursor.execute("SELECT id, name, category, price FROM Products")
         rows = cursor.fetchall()
-        products = [{
-            'id': row['id'],
-            'name': row['name'],
-            'category': row['category'],
-            'price': row['price']
-        } for row in rows]
-
         conn.close()
-        return products
-    except sqlite3.Error:
-        return None  # Return None on error
 
-# Route to display products
+        # Convert to list of dicts
+        return [
+            {'id': row[0], 'name': row[1], 'category': row[2], 'price': row[3]}
+            for row in rows
+        ]
+    except Exception as e:
+        print(f"Error reading SQL: {e}")
+        return None  # Signals a DB error
+
+# Route for displaying products
 @app.route('/products')
 def products():
     source = request.args.get('source')
@@ -72,14 +71,16 @@ def products():
         data = read_sql(product_id)
         if data is None:
             error = "Database error"
+        elif product_id and not data:
+            error = "Product not found"
     else:
         error = "Wrong source"
 
-    # Filter by ID if not using SQL and ID is provided
-    if product_id and source in ['json', 'csv']:
-        data = [item for item in data if item.get('id') == product_id]
-        if not data:
-            error = "Product not found"
+    if source in ['json', 'csv'] and not error:
+        if product_id:
+            data = [item for item in data if item.get('id') == product_id]
+            if not data:
+                error = "Product not found"
 
     return render_template('product_display.html', products=data, error=error)
 
